@@ -1,0 +1,112 @@
+import tkinter as tk
+
+window = tk.Tk()
+
+window.title("Mini Cal")
+window.geometry("157x205")
+window.resizable(False, False)
+
+wellTitle = tk.Label(window, text="0", font=("Arial", 9))
+wellTitle.pack()
+
+result = ""
+
+def myFunc(recived):
+    global result
+    if recived == "clearLst":
+        result = result[:-1]
+        wellTitle.config(text=result)
+    elif recived == "clear":
+        result = ""
+        wellTitle.config(text=result)
+    elif recived == "solve":
+        if result == "":
+            print("NOthing!")
+        elif result[-1] in "+-/*":
+            result = result[:-1]
+            result = str(round(eval(result), 4))
+            wellTitle.config(text=result)
+            print(result)
+        else:
+            result = str(round(eval(result), 4))
+            wellTitle.config(text=result)
+            print(result)
+    elif recived in [0, "+", "-", "/", "*"]:
+        if result == "":
+            print("")
+        elif result[-1] in "+-/*":
+            print("")
+        else:
+            result = f"{result}{recived}"
+            wellTitle.config(text=result)
+            print(result)
+    else:
+        if result == "":
+            if recived == 0:
+                print("")
+            else:
+                result = f"{result}{recived}"
+                wellTitle.config(text=result)
+                print(result)
+        else:
+            result = f"{result}{recived}"
+            wellTitle.config(text=result)
+            print(result)
+        
+
+
+clear = tk.Button(window, text="C", width=3, command=lambda: myFunc("clear"))
+clear.place(x=10, y=50)
+
+multiply = tk.Button(window, text="x", width=3, command=lambda: myFunc("*"))
+multiply.place(x=80, y=50)
+
+divide = tk.Button(window, text="/", width=3, command=lambda: myFunc("/"))
+divide.place(x=45, y=50)
+
+clearLst = tk.Button(window, text="🔙", width=3, command=lambda: myFunc("clearLst"))
+clearLst.place(x=115, y=50)
+
+num7 = tk.Button(window, text="7", width=3, command=lambda: myFunc(7))
+num7.place(x=10, y=80)
+
+num8 = tk.Button(window, text="8", width=3, command=lambda: myFunc(8))
+num8.place(x=45, y=80)
+
+num9 = tk.Button(window, text="9", width=3, command=lambda: myFunc(9))
+num9.place(x=80, y=80)
+
+minus = tk.Button(window, text="-", width=3, command=lambda: myFunc("-"))
+minus.place(x=115, y=80)
+
+num4 = tk.Button(window, text="4", width=3, command=lambda: myFunc(4))
+num4.place(x=10, y=110)
+
+num5 = tk.Button(window, text="5", width=3, command=lambda: myFunc(5))
+num5.place(x=45, y=110)
+
+num6 = tk.Button(window, text="6", width=3, command=lambda: myFunc(6))
+num6.place(x=80, y=110)
+
+plus = tk.Button(window, text="+", width=3, command=lambda: myFunc("+"))
+plus.place(x=115, y=110)
+
+num1 = tk.Button(window, text="1", width=3, command=lambda: myFunc(1))
+num1.place(x=10, y=140)
+
+num2 = tk.Button(window, text="2", width=3, command=lambda: myFunc(2))
+num2.place(x=45, y=140)
+
+num3 = tk.Button(window, text="3", width=3, command=lambda: myFunc(3))
+num3.place(x=80, y=140)
+
+calculate = tk.Button(window, text="=", width=3, command=lambda: myFunc("solve"))
+calculate.place(x=115, y=140)
+
+num0 = tk.Button(window, text="0", width=3, command=lambda: myFunc(0))
+num0.place(x=45, y=170)
+
+
+window.mainloop()
+
+
